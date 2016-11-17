@@ -5,7 +5,7 @@ QuadArea::QuadArea()
 
 }
 
-void QuadArea::subdivision() {
+void QuadArea::subdivision(Mesh& m) {
     // if (aire > Nombre)
     // récursion -> Appel sur de nouveau Quad/Triangle
     // } else {

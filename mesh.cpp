@@ -3,7 +3,6 @@
 #include <limits>
 #include <QFile>
 #include <QTextStream>
-#include <QMessageBox>
 #include <iostream>
 
 #define PI 3.14159265
