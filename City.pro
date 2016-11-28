@@ -36,4 +36,5 @@ HEADERS += \
     line.h \
     groundfloor.h \
     floor.h \
-    roof.h
+    roof.h \
+    function.h

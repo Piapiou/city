@@ -3,6 +3,11 @@
 
 #include "mesh.h"
 
+enum class TGram{
+    TTT=50,
+    QT=100
+};
+
 class TriangleArea
 {
 public:
