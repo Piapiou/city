@@ -179,6 +179,42 @@ Mesh Mesh::makeCone(const Point center, float height, float rayon, int pointByAr
     return m;
 }
 
+Mesh Mesh::makeFloor(Point p1, Point p2, Point p3, Point p4, float h) {
+    Mesh m = Mesh();
+    m.vertices.append(Point(p1));                       // 0
+    m.vertices.append(Point(p2));                       // 1
+    m.vertices.append(Point(p3));                       // 2
+    m.vertices.append(Point(p4));                       // 3
+    m.vertices.append(Point(p1.x(),p1.y(),p1.z()+0.95*h));   // 4
+    m.vertices.append(Point(p2.x(),p2.y(),p2.z()+0.95*h));   // 5
+    m.vertices.append(Point(p3.x(),p3.y(),p3.z()+0.95*h));   // 6
+    m.vertices.append(Point(p4.x(),p4.y(),p4.z()+0.95*h));   // 7
+
+    m.triangles.append(Triangle(2,7,3));
+    m.triangles.append(Triangle(2,6,7));
+    m.triangles.append(Triangle(4,1,5));
+    m.triangles.append(Triangle(4,0,1));
+    m.triangles.append(Triangle(3,0,4));
+    m.triangles.append(Triangle(3,4,7));
+    m.triangles.append(Triangle(1,2,6));
+    m.triangles.append(Triangle(1,6,5));
+
+    return m;
+}
+
+Mesh Mesh::makeRoof(Point p1, Point p2, Point p3, Point p4) {
+    Mesh m = Mesh();
+    m.vertices.append(Point(p1));
+    m.vertices.append(Point(p2));
+    m.vertices.append(Point(p3));
+    m.vertices.append(Point(p4));
+
+    m.triangles.append(Triangle(0,1,2));
+    m.triangles.append(Triangle(0,2,3));
+
+    return m;
+}
+
 Mesh Mesh::operator=(const Mesh &rhs)
 {
     Mesh m = Mesh();

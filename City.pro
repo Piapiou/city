@@ -7,7 +7,6 @@ SOURCES += main.cpp \
     mesh.cpp \
     point.cpp \
     triangle.cpp \
-    city.cpp \
     detail.cpp \
     quadarea.cpp \
     trianglearea.cpp \
@@ -31,7 +30,6 @@ HEADERS += \
     mesh.h \
     point.h \
     triangle.h \
-    city.h \
     detail.h \
     quadarea.h \
     trianglearea.h \
