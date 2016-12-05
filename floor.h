@@ -12,7 +12,7 @@ public:
     void shrink(float d);
 
     static constexpr float FLOOR_T1 = 0.65;
-    static constexpr float FLOOR_T2 = 0.85;
+    static constexpr float FLOOR_T2 = 0.90;
     static constexpr float FLOOR_T3 = 1.00;
 
 private:
