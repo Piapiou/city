@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <iostream>
+#include "function.h"
 
 #define PI 3.14159265
 
@@ -175,6 +176,83 @@ Mesh Mesh::makeCone(const Point center, float height, float rayon, int pointByAr
     m.vertices.append(Point(rayon*cos(2*PI)+center.x(), rayon*sin(2*PI)+center.y(), center.z()));
     m.triangles.append(Triangle(0,current,2));
     m.triangles.append(Triangle(1,2,current));
+
+    return m;
+}
+
+Mesh Mesh::makeFloor(Point p1, Point p2, Point p3, Point p4, float h) {
+
+    float d = 0.3;
+    Point p[4];
+    p[0] = Point(p1.x(),p1.y(),p1.z()+0.95*h);
+    p[1] = Point(p2.x(),p2.y(),p2.z()+0.95*h);
+    p[2] = Point(p3.x(),p3.y(),p3.z()+0.95*h);
+    p[3] = Point(p4.x(),p4.y(),p4.z()+0.95*h);
+
+    shrinkN(p,4,0.3);
+
+    Mesh m = Mesh();
+    m.vertices.append(Point(p1));                       // 0
+    m.vertices.append(Point(p2));                       // 1
+    m.vertices.append(Point(p3));                       // 2
+    m.vertices.append(Point(p4));                       // 3
+    m.vertices.append(Point(p1.x(),p1.y(),p1.z()+0.95*h));   // 4
+    m.vertices.append(Point(p2.x(),p2.y(),p2.z()+0.95*h));   // 5
+    m.vertices.append(Point(p3.x(),p3.y(),p3.z()+0.95*h));   // 6
+    m.vertices.append(Point(p4.x(),p4.y(),p4.z()+0.95*h));   // 7
+
+    m.vertices.append(Point(p[2]));   // 8
+    m.vertices.append(Point(p[3]));   // 9
+    m.vertices.append(Point(p[0]));   // 10
+    m.vertices.append(Point(p[1]));   // 11
+    m.vertices.append(Point(p[2].x(),p[2].y(),p[2].z()+0.05*h));   // 12
+    m.vertices.append(Point(p[3].x(),p[3].y(),p[3].z()+0.05*h));   // 13
+    m.vertices.append(Point(p[0].x(),p[0].y(),p[0].z()+0.05*h));   // 14
+    m.vertices.append(Point(p[1].x(),p[1].y(),p[1].z()+0.05*h));   // 15
+
+    m.triangles.append(Triangle(2,7,3));
+    m.triangles.append(Triangle(2,6,7));
+    m.triangles.append(Triangle(4,1,5));
+    m.triangles.append(Triangle(4,0,1));
+    m.triangles.append(Triangle(3,0,4));
+    m.triangles.append(Triangle(3,4,7));
+    m.triangles.append(Triangle(1,2,6));
+    m.triangles.append(Triangle(1,6,5));
+    m.triangles.append(Triangle(0,1,2));
+    m.triangles.append(Triangle(0,2,3));
+    m.triangles.append(Triangle(8,4,9));
+    m.triangles.append(Triangle(9,4,5));
+    m.triangles.append(Triangle(9,5,10));
+    m.triangles.append(Triangle(10,5,6));
+    m.triangles.append(Triangle(10,6,11));
+    m.triangles.append(Triangle(11,6,7));
+    m.triangles.append(Triangle(11,7,8));
+    m.triangles.append(Triangle(8,7,4));
+    m.triangles.append(Triangle(12,8,9));
+    m.triangles.append(Triangle(9,13,12));
+    m.triangles.append(Triangle(13,9,10));
+    m.triangles.append(Triangle(10,14,13));
+    m.triangles.append(Triangle(14,10,11));
+    m.triangles.append(Triangle(11,15,14));
+    m.triangles.append(Triangle(15,11,8));
+    m.triangles.append(Triangle(8,12,15));
+    m.triangles.append(Triangle(12,13,14));
+    m.triangles.append(Triangle(14,15,12));
+
+
+
+    return m;
+}
+
+Mesh Mesh::makeRoof(Point p1, Point p2, Point p3, Point p4) {
+    Mesh m = Mesh();
+    m.vertices.append(Point(p1));
+    m.vertices.append(Point(p2));
+    m.vertices.append(Point(p3));
+    m.vertices.append(Point(p4));
+
+    m.triangles.append(Triangle(0,1,2));
+    m.triangles.append(Triangle(0,2,3));
 
     return m;
 }
