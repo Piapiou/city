@@ -22,6 +22,7 @@ public:
     float forme(); // Perimetre / Aire
     QuadArea shrink();
     void addToMesh(Mesh& m);
+    void subdivisionPate(Mesh& m);
 
 private:
     Point p[4];

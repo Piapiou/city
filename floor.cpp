@@ -3,6 +3,11 @@
 #include <iostream>
 #include "function.h"
 
+Floor::Floor()
+{
+
+}
+
 Floor::Floor(Point p1, Point p2, Point p3, Point p4, float h)
 {
     this->p1 = p1;
