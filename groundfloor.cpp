@@ -1,6 +1,7 @@
 #include "groundfloor.h"
 #include "floor.h"
 #include <iostream>
+#include <time.h>
 
 GroundFloor::GroundFloor(Point p1, Point p2, Point p3, Point p4, float h)
 {
@@ -9,6 +10,7 @@ GroundFloor::GroundFloor(Point p1, Point p2, Point p3, Point p4, float h)
     this->p3 = p3;
     this->p4 = p4;
     size = h;
+
 }
 
 void GroundFloor::subdivision(Mesh& m) {
