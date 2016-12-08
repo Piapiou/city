@@ -10,7 +10,7 @@ Point randomMid(Point p1, Point p2) {
     srand(time(NULL));
 
     float pond1=((rand()%10)+5)/10;
-    float pond2=1.5-pond1;
+    float pond2=2-pond1;
 
     return Point(QVector3D((p1.x()*pond1)+(p2.x()*pond2)/2,(p1.y()*pond1)+(p2.y()*pond2)/2,(p1.z()*pond1)+(p2.z()*pond2)/2));
 }

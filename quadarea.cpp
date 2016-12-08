@@ -20,12 +20,12 @@ void QuadArea::subdivision(Mesh& m)
     int seuil=100;
 
     if (computeQuadArea(p) < seuil){
-
+        printf("%f",this->p[0].x());
         return;
     }
 
-    int alea=rand()%100;
-
+    //int alea=rand()%100;
+    int alea=1;
     if(alea<=(int)QGram::QQ){
         Point m1=randomMid(p[longestEdge()],p[(longestEdge()+2)%4]);
         Point m2=randomMid(p[(longestEdge()+1)%4],p[(longestEdge()+3)%4]);
@@ -37,6 +37,10 @@ void QuadArea::subdivision(Mesh& m)
     else if(alea<=(int)QGram::QTT){
 
     }
+}
+
+void QuadArea::addToMesh(Mesh& m){
+    m.
 }
 
 int QuadArea::longestEdge(){
