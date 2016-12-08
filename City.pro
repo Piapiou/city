@@ -14,8 +14,7 @@ SOURCES += main.cpp \
     line.cpp \
     groundfloor.cpp \
     floor.cpp \
-    roof.cpp \
-    quad.cpp
+    roof.cpp
 
 RESOURCES += qml.qrc
 
@@ -38,5 +37,4 @@ HEADERS += \
     groundfloor.h \
     floor.h \
     roof.h \
-    function.h \
-    quad.h
+    function.h

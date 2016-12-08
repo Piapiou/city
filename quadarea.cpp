@@ -40,7 +40,6 @@ void QuadArea::subdivision(Mesh& m)
 }
 
 void QuadArea::addToMesh(Mesh& m){
-    m.
 }
 
 int QuadArea::longestEdge(){
