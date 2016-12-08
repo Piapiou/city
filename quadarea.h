@@ -3,8 +3,8 @@
 
 #include "mesh.h"
 #include "function.h"
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>       /* time */
+#include <trianglearea.h>
+#include <floor.h>
 
 enum class QGram{
     QQ=75,
@@ -21,6 +21,7 @@ public:
     float aire();
     float forme(); // Perimetre / Aire
     QuadArea shrink();
+    void addToMesh(Mesh& m);
 
 private:
     Point p[4];

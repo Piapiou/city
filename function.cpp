@@ -6,23 +6,26 @@
  * @return
  */
 Point randomMid(Point p1, Point p2) {
+    float pond1=((float)((rand()%10)+5)/20);
+    float pond2=1-pond1;
 
-    srand(time(NULL));
-
-    float pond1=((rand()%10)+5)/10;
-    float pond2=1.5-pond1;
-
-    return Point(QVector3D((p1.x()*pond1)+(p2.x()*pond2)/2,(p1.y()*pond1)+(p2.y()*pond2)/2,(p1.z()*pond1)+(p2.z()*pond2)/2));
+    return Point(QVector3D((p1.x()*pond1)+(p2.x()*pond2),(p1.y()*pond1)+(p2.y()*pond2),(p1.z()*pond1)+(p2.z()*pond2)));
 }
 
-float computeQuadArea(Point* p){
-    return 0;
+float computeQuadArea(Point a,Point b,Point c,Point d){
+    return computeTriangleArea(a,b,c)+computeTriangleArea(c,d,a);
+}
+
+float computeTriangleArea(Point a,Point b,Point c){
+    float ab=distanceTwoPoints(a,b);
+    float bc=distanceTwoPoints(b,c);
+    float ca=distanceTwoPoints(c,a);
+    float p=(ab+bc+ca)/2;
+    return(sqrt(p*(p-ab)*(p-bc)*(p-ca)));
 }
 
 float distanceTwoPoints(Point p1, Point p2){
-
     return sqrt((p2.x()-p1.x())*(p2.x()-p1.x())+(p2.y()-p1.y())*(p2.y()-p1.y()));
-
 }
 
 void shrinkN(Point * p, int n, float d) {
