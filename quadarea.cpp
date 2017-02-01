@@ -11,8 +11,6 @@ QuadArea::QuadArea(Point pa, Point pb, Point pc, Point pd)
     this->p[1]=pb;
     this->p[2]=pc;
     this->p[3]=pd;
-
-
 }
 
 void QuadArea::subdivision(Mesh& m)
