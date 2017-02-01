@@ -15,17 +15,17 @@ Floor::Floor(Point p1, Point p2, Point p3, Point p4, float h)
     this->p3 = p3;
     this->p4 = p4;
     size = h;
-    type = BAT_T1;
+    heightMin = 0.0f;
 }
 
-Floor::Floor(Point p1, Point p2, Point p3, Point p4, float h, int t)
+Floor::Floor(Point p1, Point p2, Point p3, Point p4, float h, float height)
 {
     this->p1 = p1;
     this->p2 = p2;
     this->p3 = p3;
     this->p4 = p4;
     size = h;
-    type = t;
+    heightMin = height;
 }
 
 void Floor::subdivision(Mesh& m) {
@@ -36,49 +36,32 @@ void Floor::subdivision(Mesh& m) {
     // Rendre les divisions et l'arrêt du batiments plus important au fur et à mesure qu'on monte.
     i += p1.z()*0.01;
 
-    switch (type) {
-    case BAT_T1 :
-        if (i < FLOOR_T1) {
+    if (i < FLOOR_T1 || (i < FLOOR_T2 && !checkSize(MIN_LENGTH)) || (p1.z() < heightMin)) {
 
-            Floor f(Point(p1.x(),p1.y(),p1.z()+size),
-                    Point(p2.x(),p2.y(),p2.z()+size),
-                    Point(p3.x(),p3.y(),p3.z()+size),
-                    Point(p4.x(),p4.y(),p4.z()+size),size,type);
+        Floor f(Point(p1.x(),p1.y(),p1.z()+size),
+                Point(p2.x(),p2.y(),p2.z()+size),
+                Point(p3.x(),p3.y(),p3.z()+size),
+                Point(p4.x(),p4.y(),p4.z()+size),size,heightMin);
 
-            f.subdivision(m);
+        f.subdivision(m);
 
-        } else if (i < FLOOR_T2 &&
-                   // Condition d'execution du shrinks (N'est pas parfait : A améliorer)
-                   !(distanceTwoPoints(p1, p2) < 2.0
-                    || distanceTwoPoints(p2, p3) < 2.0
-                    || distanceTwoPoints(p3, p4) < 2.0
-                    || distanceTwoPoints(p4, p1) < 2.0
-                    || distanceTwoPoints(p1, p3) < 2.0
-                    || distanceTwoPoints(p2, p4) < 2.0)) {
+    } else if (i < FLOOR_T2 && checkSize(MIN_LENGTH)) {
 
-            Floor f(Point(p1.x(),p1.y(),p1.z()+size),
-                    Point(p2.x(),p2.y(),p2.z()+size),
-                    Point(p3.x(),p3.y(),p3.z()+size),
-                    Point(p4.x(),p4.y(),p4.z()+size),size,type);
-            f.shrink(2.0);
-            f.subdivision(m);
+        Floor f(Point(p1.x(),p1.y(),p1.z()+size),
+                Point(p2.x(),p2.y(),p2.z()+size),
+                Point(p3.x(),p3.y(),p3.z()+size),
+                Point(p4.x(),p4.y(),p4.z()+size),size,heightMin);
+        f.shrink(SHRINK_LENGTH);
+        f.subdivision(m);
 
-        } else {
+    } else {
 
-            Roof r(Point(p1.x(),p1.y(),p1.z()+size),
-                   Point(p2.x(),p2.y(),p2.z()+size),
-                   Point(p3.x(),p3.y(),p3.z()+size),
-                   Point(p4.x(),p4.y(),p4.z()+size));
-            r.makeMesh(m);
+        Roof r(Point(p1.x(),p1.y(),p1.z()+size),
+               Point(p2.x(),p2.y(),p2.z()+size),
+               Point(p3.x(),p3.y(),p3.z()+size),
+               Point(p4.x(),p4.y(),p4.z()+size));
+        r.makeMesh(m);
 
-        }
-        break;
-    case BAT_T2 :
-        break;
-    case BAT_T3 :
-        break;
-    default:
-        break;
     }
 }
 
@@ -103,4 +86,12 @@ void Floor::makeMesh(Mesh& m) {
     m.merge(Mesh::makeFloor(p1,p2,p3,p4,size));
 }
 
+bool Floor::checkSize(float d) {
+    return !(distanceTwoPoints(p1, p2) < d
+         || distanceTwoPoints(p2, p3) < d
+         || distanceTwoPoints(p3, p4) < d
+         || distanceTwoPoints(p4, p1) < d
+         || distanceTwoPoints(p1, p3) < d
+         || distanceTwoPoints(p2, p4) < d);
+}
 

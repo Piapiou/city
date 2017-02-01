@@ -182,7 +182,6 @@ Mesh Mesh::makeCone(const Point center, float height, float rayon, int pointByAr
 
 Mesh Mesh::makeFloor(Point p1, Point p2, Point p3, Point p4, float h) {
 
-    float d = 0.3;
     Point p[4];
     p[0] = Point(p1.x(),p1.y(),p1.z()+0.95*h);
     p[1] = Point(p2.x(),p2.y(),p2.z()+0.95*h);
