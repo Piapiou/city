@@ -6,6 +6,7 @@
 class Floor
 {
 public:
+    Floor();
     Floor(Point p1, Point p2, Point p3, Point p4, float h);
     Floor(Point p1, Point p2, Point p3, Point p4, float h, int t);
     void subdivision(Mesh& m);
