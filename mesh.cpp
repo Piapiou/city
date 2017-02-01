@@ -140,8 +140,8 @@ Mesh Mesh::makeCylinder(const Point center, float height, float rayon, int point
         m.vertices.append(Point(rayon*cos(i)+center.x(), rayon*sin(i)+center.y(), center.z()));
         m.vertices.append(Point(rayon*cos(i)+center.x(), rayon*sin(i)+center.y(), center.z()+height));
         m.triangles.append(Triangle(0,current,current+2));
-        m.triangles.append(Triangle(current,current+3,current+2));
-        m.triangles.append(Triangle(current,current+1,current+3));
+        m.triangles.append(Triangle(current,current+2,current+3));
+        m.triangles.append(Triangle(current,current+3,current+1));
         m.triangles.append(Triangle(1,current+3,current+1));
         current += 2;
     }
@@ -150,8 +150,8 @@ Mesh Mesh::makeCylinder(const Point center, float height, float rayon, int point
     m.vertices.append(Point(rayon*cos(2*PI)+center.x(), rayon*sin(2*PI)+center.y(), center.z()));
     m.vertices.append(Point(rayon*cos(2*PI)+center.x(), rayon*sin(2*PI)+center.y(), center.z()+height));
     m.triangles.append(Triangle(0,current,2));
-    m.triangles.append(Triangle(current,3,2));
-    m.triangles.append(Triangle(current,current+1,3));
+    m.triangles.append(Triangle(current,2,3));
+    m.triangles.append(Triangle(current,3,current+1));
     m.triangles.append(Triangle(1,3,current+1));
 
     return m;

@@ -1,4 +1,6 @@
 #include "function.h"
+#include <iostream>
+
 /**
  * @brief Calcul un point proche du milieu des deux point en paramètre.
  * @param p1
@@ -71,7 +73,25 @@ void shrinkN(Point * p, int n, float d) {
     }
 
     for (int i = 0; i < n; i++) {
-        p[i].setX(x[i]);
-        p[i].setY(y[i]);
+        p[i].setX(x[(i+n-1)%n]);
+        p[i].setY(y[(i+n-1)%n]);
     }
+}
+
+Point getProjectedPointOnLine(Point A, Point B, Point C)
+{
+    Point v1 = A;
+    Point v2 = B;
+    Point p = C;
+
+    // get dot product of e1, e2
+    Point e1 = Point(v2.x() - v1.x(), v2.y() - v1.y(), 0.0);
+    Point e2 = Point(p.x() - v1.x(), p.y() - v1.y(), 0.0);
+    double valDp = QVector3D::dotProduct(e1, e2);
+
+    // get squared length of e1
+    double len2 = e1.x() * e1.x() + e1.y() * e1.y();
+    Point pp = Point((v1.x() + (valDp * e1.x()) / len2),
+                      (v1.y() + (valDp * e1.y()) / len2), 0.0);
+    return pp;
 }

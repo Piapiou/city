@@ -20,7 +20,11 @@ public:
     void subdivision(Mesh& m);
     QuadArea shrink();
     void addToMesh(Mesh& m);
+
     Point getPoint(int ind);
+
+    void subdivisionPate(Mesh& m);
+
 
 private:
     float aire;

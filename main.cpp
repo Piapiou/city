@@ -1,19 +1,24 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
-#include <mesh.h>
+#include "mesh.h"
+#include "groundfloor.h"
+#include <iostream>
+#include <time.h>
 #include <quadarea.h>
+#include <roundfloor.h>
 
-int main(int argc, char *argv[])
+int main(int, char **)
 {
-    QGuiApplication app(argc, argv);
-
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    Mesh m = Mesh();
     srand(time(NULL));
-    Mesh m=Mesh();
-    QuadArea q=QuadArea(Point(0,0,0),Point(1000,0,0),Point(1000,1000,0),Point(0,1000,0));
-    q.subdivision(m);
-    m.toOBJ("test.obj");
-    return app.exec();
+
+    GroundFloor gf = GroundFloor(Point(50.0,-10.0,0.0),
+                                 Point(10.0,50.0,0.0),
+                                 Point(-50.0,10.0,0.0),
+                                 Point(-10.0,-50.0,0.0), 3.0);
+    gf.subdivision(m);
+
+    m.toOBJ("C:/Users/toshiba/Desktop/building.obj");
+
+    return 0;
 }
