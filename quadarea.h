@@ -18,13 +18,16 @@ public:
     QuadArea();
     QuadArea(Point pa, Point pb, Point pc, Point pd);
     void subdivision(Mesh& m);
-    float aire();
-    float forme(); // Perimetre / Aire
     QuadArea shrink();
     void addToMesh(Mesh& m);
+
+    Point getPoint(int ind);
+
     void subdivisionPate(Mesh& m);
 
+
 private:
+    float aire;
     Point p[4];
     int longestEdge();
 };

@@ -5,7 +5,7 @@
 #include "function.h"
 
 enum class TGram{
-    TTT=50,
+    QTT=50,
     QT=100
 };
 
@@ -15,10 +15,9 @@ public:
     TriangleArea();
     TriangleArea(Point pa, Point pb, Point pc);
     void subdivision(Mesh& m);
-    float aire();
-    float forme(); // triangle inscrit / cercle circonscrit
     TriangleArea shrink();
 private:
+    float aire;
     Point p[3];
 
 };

@@ -80,18 +80,16 @@ void shrinkN(Point * p, int n, float d) {
 
 Point getProjectedPointOnLine(Point A, Point B, Point C)
 {
-    Point v1 = A;
-    Point v2 = B;
-    Point p = C;
-
     // get dot product of e1, e2
-    Point e1 = Point(v2.x() - v1.x(), v2.y() - v1.y(), 0.0);
-    Point e2 = Point(p.x() - v1.x(), p.y() - v1.y(), 0.0);
+    Point e1 = Point(B.x() - A.x(), B.y() - A.y(), 0.0);
+    Point e2 = Point(C.x() - A.x(), C.y() - A.y(), 0.0);
     double valDp = QVector3D::dotProduct(e1, e2);
 
     // get squared length of e1
     double len2 = e1.x() * e1.x() + e1.y() * e1.y();
-    Point pp = Point((v1.x() + (valDp * e1.x()) / len2),
-                      (v1.y() + (valDp * e1.y()) / len2), 0.0);
+
+    Point pp = Point((A.x() + (valDp * e1.x()) / len2),
+                      (A.y() + (valDp * e1.y()) / len2), 0.0);
+
     return pp;
 }
