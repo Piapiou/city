@@ -1,4 +1,6 @@
 #include "function.h"
+#include <iostream>
+
 /**
  * @brief Calcul un point proche du milieu des deux point en paramètre.
  * @param p1
@@ -71,8 +73,8 @@ void shrinkN(Point * p, int n, float d) {
     }
 
     for (int i = 0; i < n; i++) {
-        p[i].setX(x[i]);
-        p[i].setY(y[i]);
+        p[i].setX(x[(i+n-1)%n]);
+        p[i].setY(y[(i+n-1)%n]);
     }
 }
 
