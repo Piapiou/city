@@ -91,7 +91,7 @@ void QuadArea::subdivisionPate(Mesh& m)
         p2[i] = p3[i];
     }
 
-    shrinkN(p3, 4, 20);
+    shrinkN(p3, 4, 25);
 
     // Projetés ortho
     Point pOrtho[8];
@@ -104,9 +104,10 @@ void QuadArea::subdivisionPate(Mesh& m)
     pOrtho[6] = getProjectedPointOnLine(p2[3], p2[0], p3[3]);
     pOrtho[7] = getProjectedPointOnLine(p2[3], p2[0], p3[0]);
 
+    // Coins
     Floor coins[4];
 
-    coins[0] = Floor(p2[0], pOrtho[7], p3[0], pOrtho[0], 3);
+    coins[0] = Floor(p2[0], pOrtho[0], p3[0], pOrtho[7], 3);
     coins[1] = Floor(p2[1], pOrtho[2], p3[1], pOrtho[1], 3);
     coins[2] = Floor(p2[2], pOrtho[4], p3[2], pOrtho[3], 3);
     coins[3] = Floor(p2[3], pOrtho[6], p3[3], pOrtho[5], 3);
@@ -114,6 +115,42 @@ void QuadArea::subdivisionPate(Mesh& m)
     for(int i = 0; i < 4; i++)
     {
         coins[i].subdivision(m);
+    }
+
+    // Inter-Coins
+    int alea = rand() % 100;
+
+    if(alea < 50)
+    {
+        Floor coin;
+
+        for(int i = 0; i < 4; i++)
+        {
+            Point mid = (p3[i] + p3[(i + 1) % 4]) / 2;
+            Point mid2 = (pOrtho[i * 2] + pOrtho[i * 2 + 1]) / 2;
+
+            coin = Floor(p3[i], pOrtho[i * 2], mid2, mid, 3);
+            coin.subdivision(m);
+
+            coin = Floor(mid2, pOrtho[i * 2 + 1], p3[(i + 1) % 4], mid, 3);
+            coin.subdivision(m);
+        }
+    }
+    else
+    {
+        Floor coin;
+
+        for(int i = 0; i < 4; i++)
+        {
+            Point mid = (p3[i] + p3[(i + 1) % 4]) / 2;
+            Point mid2 = (pOrtho[i * 2] + pOrtho[i * 2 + 1]) / 2;
+
+            coin = Floor(p3[i], pOrtho[i * 2], mid2, mid, 3);
+            coin.subdivision(m);
+
+            coin = Floor(mid2, pOrtho[i * 2 + 1], p3[(i + 1) % 4], mid, 3);
+            coin.subdivision(m);
+        }
     }
 }
 

@@ -89,7 +89,7 @@ Point getProjectedPointOnLine(Point A, Point B, Point C)
     double len2 = e1.x() * e1.x() + e1.y() * e1.y();
 
     Point pp = Point((A.x() + (valDp * e1.x()) / len2),
-                      (A.y() + (valDp * e1.y()) / len2), 0.0);
+                      (A.y() + (valDp * e1.y()) / len2), 0.2);
 
     return pp;
 }
