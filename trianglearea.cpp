@@ -66,3 +66,8 @@ void TriangleArea::subdivision(Mesh& m,QImage& img,float shrinkSize){
         }
     }
 }
+
+void TriangleArea::subdivisionPate(Mesh& m)
+{
+
+}
