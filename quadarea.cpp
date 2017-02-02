@@ -16,19 +16,21 @@ QuadArea::QuadArea(Point pa, Point pb, Point pc, Point pd)
 
 void QuadArea::subdivision(Mesh& m,QImage& img,float shrinkSize)
 {
-    int seuil=2000;
+    int seuil=5000;
+    int seuilTr=10000;
     shrinkSize=shrinkSize/2>2?shrinkSize/2:2;
 
     aire=computeQuadArea(p[0],p[1],p[2],p[3]);
     if (aire< seuil){
-
-        Floor f=Floor(p[0],p[1],p[2],p[3],3);
-        f.subdivision(m);
+        subdivisionPate(m);
         drawPoly(p,4,img);
         return;
     }
 
     int alea=rand()%100;
+    if(aire<seuilTr){
+        alea=0;
+    }
     if(alea<=(int)QGram::QQ){
         Point m1=randomMid(p[longestEdge()],p[(longestEdge()+1)%4]);
         Point m2=randomMid(p[(longestEdge()+2)%4],p[(longestEdge()+3)%4]);

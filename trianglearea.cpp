@@ -13,13 +13,14 @@ TriangleArea::TriangleArea(Point pa, Point pb, Point pc){
 }
 
 void TriangleArea::subdivision(Mesh& m,QImage& img,float shrinkSize){
-    int seuil=3000;
+    int seuil=15000;
 
     shrinkSize=shrinkSize/2>2?shrinkSize/2:2;
 
     aire=computeTriangleArea(p[0],p[1],p[2]);
     if (aire < seuil){
         drawPoly(p,3,img);
+
         return;
     }
 
@@ -33,12 +34,12 @@ void TriangleArea::subdivision(Mesh& m,QImage& img,float shrinkSize){
         QuadArea q1=QuadArea(m1,p[(alea+1)%3],p[(alea+2)%3],m2);
 
         if(!polyTooSmall(t1.p,3,shrinkSize)){
-                        shrinkN(t1.p,3,shrinkSize);
+            shrinkN(t1.p,3,shrinkSize);
             t1.subdivision(m,img,shrinkSize);
 
         }
         if(!polyTooSmall(q1.p,4,shrinkSize)){
-                        shrinkN(q1.p,4,shrinkSize);
+            shrinkN(q1.p,4,shrinkSize);
             q1.subdivision(m,img,shrinkSize);
 
         }
