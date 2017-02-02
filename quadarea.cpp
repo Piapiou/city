@@ -57,9 +57,16 @@ void QuadArea::subdivision(Mesh& m,QImage& img,float shrinkSize)
         QuadArea q1= QuadArea(p[longestEdge()],m1,m2,p[(longestEdge()+3)%4]);
         QuadArea q2= QuadArea(m1,p[(longestEdge()+1)%4],p[(longestEdge()+2)%4],m2);
 
-        TriangleArea t1=TriangleArea(q2.getPoint(0),q2.getPoint(1),q2.getPoint(2));
-        TriangleArea t2=TriangleArea(q2.getPoint(2),q2.getPoint(3),q2.getPoint(0));
-
+        TriangleArea t1;
+        TriangleArea t2;
+        if(distanceTwoPoints(p[0],p[2])>distanceTwoPoints(p[1],p[3])){
+            t1=TriangleArea(q2.getPoint(0),q2.getPoint(1),q2.getPoint(3));
+            t2=TriangleArea(q2.getPoint(1),q2.getPoint(2),q2.getPoint(3));
+        }
+        else{
+            t1=TriangleArea(q2.getPoint(0),q2.getPoint(1),q2.getPoint(2));
+            t2=TriangleArea(q2.getPoint(2),q2.getPoint(3),q2.getPoint(0));
+        }
         if(!polyTooSmall(q1.p,4,shrinkSize)){
             shrinkN(q1.p,4,shrinkSize);
             q1.subdivision(m,img,shrinkSize);
