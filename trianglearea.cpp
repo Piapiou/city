@@ -19,8 +19,8 @@ void TriangleArea::subdivision(Mesh& m,QImage& img,float shrinkSize){
 
     aire=computeTriangleArea(p[0],p[1],p[2]);
     if (aire < seuil){
+        subdivisionPate(m);
         drawPoly(p,3,img);
-
         return;
     }
 
