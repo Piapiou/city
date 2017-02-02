@@ -127,6 +127,7 @@ void QuadArea::subdivisionPate(Mesh& m)
         p2[i] = p3[i];
     }
 
+    if(this->aire > 2500)
     {
         shrinkN(p3, 4, 12);
 
