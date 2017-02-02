@@ -100,55 +100,48 @@ void TriangleArea::subdivisionPate(Mesh& m)
 
     m.merge(Mesh::makeTriangle(p3[0], p3[1], p3[2]));
 
-    for(int i = 0; i < 3; i++)
-    {
-        p2[i] = p3[i];
-    }
-
-    shrinkN(p3, 3, 15);
-    shrinkN(p2, 3, 0.5);
-
-    // Projetés ortho
-    Point pOrtho[6];
-    pOrtho[0] = getProjectedPointOnLine(p2[0], p2[1], p3[0]);
-    pOrtho[1] = getProjectedPointOnLine(p2[0], p2[1], p3[1]);
-    pOrtho[2] = getProjectedPointOnLine(p2[1], p2[2], p3[1]);
-    pOrtho[3] = getProjectedPointOnLine(p2[1], p2[2], p3[2]);
-    pOrtho[4] = getProjectedPointOnLine(p2[2], p2[0], p3[2]);
-    pOrtho[5] = getProjectedPointOnLine(p2[2], p2[0], p3[0]);
-
-    // Coins
-    Floor coins[3];
-
-    coins[0] = Floor(p2[0], pOrtho[0], p3[0], pOrtho[5], 3, rand() % 15 + 25);
-    coins[1] = Floor(p2[1], pOrtho[2], p3[1], pOrtho[1], 3, rand() % 15 + 25);
-    coins[2] = Floor(p2[2], pOrtho[4], p3[2], pOrtho[3], 3, rand() % 15 + 25);
-
-    for(int i = 0; i < 3; i++)
-    {
-        coins[i].subdivision(m);
-    }
-
-    // Inter-Coins
     int alea = rand() % 100;
-    Floor coin;
 
-    if(alea < 50)
+    if(alea < 20)
     {
-        for(int i = 0; i < 3; i++)
-        {
-            Point mid = (p3[i] + p3[(i + 1) % 3]) / 2;
-            Point mid2 = (pOrtho[i * 2] + pOrtho[i * 2 + 1]) / 2;
-
-            coin = Floor(p3[i], pOrtho[i * 2], mid2, mid, 3, rand() % 15 + 20);
-            coin.subdivision(m);
-
-            coin = Floor(mid2, pOrtho[i * 2 + 1], p3[(i + 1) % 3], mid, 3, rand() % 15 + 20);
-            coin.subdivision(m);
-        }
+        RoundFloor round = RoundFloor((p3[0] + p3[1] + p3[2]) / 3, 10, 5);
+        round.subdivision(m);
     }
     else
     {
+        for(int i = 0; i < 3; i++)
+        {
+            p2[i] = p3[i];
+        }
+
+        shrinkN(p3, 3, 14);
+        shrinkN(p2, 3, 0.5);
+
+        // Projetés ortho
+        Point pOrtho[6];
+        pOrtho[0] = getProjectedPointOnLine(p2[0], p2[1], p3[0]);
+        pOrtho[1] = getProjectedPointOnLine(p2[0], p2[1], p3[1]);
+        pOrtho[2] = getProjectedPointOnLine(p2[1], p2[2], p3[1]);
+        pOrtho[3] = getProjectedPointOnLine(p2[1], p2[2], p3[2]);
+        pOrtho[4] = getProjectedPointOnLine(p2[2], p2[0], p3[2]);
+        pOrtho[5] = getProjectedPointOnLine(p2[2], p2[0], p3[0]);
+
+        // Coins
+        Floor coins[3];
+
+        coins[0] = Floor(p2[0], pOrtho[0], p3[0], pOrtho[5], 3, rand() % 15 + 25);
+        coins[1] = Floor(p2[1], pOrtho[2], p3[1], pOrtho[1], 3, rand() % 15 + 25);
+        coins[2] = Floor(p2[2], pOrtho[4], p3[2], pOrtho[3], 3, rand() % 15 + 25);
+
+        for(int i = 0; i < 3; i++)
+        {
+            coins[i].subdivision(m);
+        }
+
+        // Inter-Coins
+        Floor coin;
+
+
         for(int i = 0; i < 3; i++)
         {
             Point mid = (p3[i] + p3[(i + 1) % 3]) / 2;
