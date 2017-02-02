@@ -92,7 +92,6 @@ void TriangleArea::subdivisionPate(Mesh& m)
     p3[0].setZ(p2[0].z() + 0.2);
     p3[1].setZ(p2[1].z() + 0.2);
     p3[2].setZ(p2[2].z() + 0.2);
-    p3[3].setZ(p2[3].z() + 0.2);
 
     m.merge(Mesh::makeRoof(p2[0], p2[1], p3[1], p3[0]));
     m.merge(Mesh::makeRoof(p2[1], p2[2], p3[2], p3[1]));
@@ -107,6 +106,11 @@ void TriangleArea::subdivisionPate(Mesh& m)
     }
     else
     {
+        if(this->aire > 7000)
+        {
+            m.merge(Mesh::makeCylinder((p3[0] +p3[1] + p3[2]) / 3, 3, 5, 20));
+        }
+
         for(int i = 0; i < 3; i++)
         {
             p2[i] = p3[i];
