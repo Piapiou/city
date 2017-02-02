@@ -190,6 +190,7 @@ Mesh Mesh::makeFloor(Point p1, Point p2, Point p3, Point p4, float h) {
 
     shrinkN(p,4,0.3);
 
+
     Mesh m = Mesh();
     m.vertices.append(Point(p1));                       // 0
     m.vertices.append(Point(p2));                       // 1

@@ -33,22 +33,22 @@ float distanceTwoPoints(Point p1, Point p2){
 void shrinkN(Point * p, int n, float d) {
 
     // Calcul des normales des 4 cotés
-    float nx[n];
-    float ny[n];
+    double nx[n];
+    double ny[n];
 
     for (int i = 0; i < n; i++) {
-        nx[i] = - p[(i+1)%n].y() + p[i].y();
-        ny[i] = p[(i+1)%n].x() - p[i].x();
+        nx[i] = - (double)p[(i+1)%n].y() + (double)p[i].y();
+        ny[i] = (double)p[(i+1)%n].x() - (double)p[i].x();
 
         // réajustement de la normal pour qu'elle soit à la taille du décalage
-        float n = std::sqrt(std::pow(nx[i],2.0)+std::pow(ny[i],2.0));
-        nx[i] = (nx[i]/n)*d;
-        ny[i] = (ny[i]/n)*d;
+        double n = std::sqrt(std::pow(nx[i],2.0)+std::pow(ny[i],2.0));
+        nx[i] = (nx[i]/n)*(double)d;
+        ny[i] = (ny[i]/n)*(double)d;
     }
 
     // Calcul des droites réduite
-    float a[n];
-    float b[n];
+    double a[n];
+    double b[n];
 
     for (int i = 0; i < n; i++) {
         a[i] = (p[i].y()-p[(i+1)%n].y())/(p[i].x()-p[(i+1)%n].x());
@@ -56,8 +56,8 @@ void shrinkN(Point * p, int n, float d) {
     }
     // Calcul des point d'intersection
 
-    float x[n];
-    float y[n];
+    double x[n];
+    double y[n];
     for (int i = 0; i < n; i++) {
         if (a[i] == 1.0/0.0 || a[i] == -1.0/0.0) {
             x[i] = p[i].x()+nx[i];

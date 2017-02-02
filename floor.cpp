@@ -20,6 +20,7 @@ Floor::Floor(Point p1, Point p2, Point p3, Point p4, float h)
 
 Floor::Floor(Point p1, Point p2, Point p3, Point p4, float h, float height)
 {
+
     this->p1 = p1;
     this->p2 = p2;
     this->p3 = p3;
@@ -29,6 +30,7 @@ Floor::Floor(Point p1, Point p2, Point p3, Point p4, float h, float height)
 }
 
 void Floor::subdivision(Mesh& m) {
+
 
     this->makeMesh(m);
     float i = (float)rand() / (float)RAND_MAX;
