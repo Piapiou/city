@@ -257,6 +257,17 @@ Mesh Mesh::makeRoof(Point p1, Point p2, Point p3, Point p4) {
     return m;
 }
 
+Mesh Mesh::makeTriangle(Point p1, Point p2, Point p3) {
+    Mesh m = Mesh();
+    m.vertices.append(Point(p1));
+    m.vertices.append(Point(p2));
+    m.vertices.append(Point(p3));
+
+    m.triangles.append(Triangle(0,1,2));
+
+    return m;
+}
+
 Mesh Mesh::operator=(const Mesh &rhs)
 {
     Mesh m = Mesh();

@@ -20,6 +20,7 @@ public:
     static Mesh makeCone(const Point center, float height, float rayon, int pointByArc);
     static Mesh makeFloor(Point p1, Point p2, Point p3, Point p4, float h);
     static Mesh makeRoof(Point p1, Point p2, Point p3, Point p4);
+    static Mesh makeTriangle(Point p1, Point p2, Point p3);
     Mesh operator=(const Mesh &);
     Point getMiddle();
     ~Mesh();
