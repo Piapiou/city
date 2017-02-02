@@ -14,11 +14,10 @@ class TriangleArea
 public:
     TriangleArea();
     TriangleArea(Point pa, Point pb, Point pc);
-    void subdivision(Mesh& m);
+    void subdivision(Mesh& m,QImage& img,float shrinkSize);
     TriangleArea shrink();
-private:
-    float aire;
     Point p[3];
+    float aire;
 
 };
 
