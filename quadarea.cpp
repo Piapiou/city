@@ -119,6 +119,7 @@ void QuadArea::subdivisionPate(Mesh& m)
 
     if(alea < 20)
     {
+        RoundFloor round = RoundFloor((p3[0] + p3[1] + p3[2] + p3[3]) / 4, 10, 5);
         round.subdivision(m);
     }
     else
