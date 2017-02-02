@@ -7,8 +7,6 @@
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
-
     srand(time(NULL));
     Mesh m=Mesh();
 
@@ -17,6 +15,6 @@ int main(int argc, char *argv[])
     q.subdivision(m,img,20);
     img.save("Imagebien.png");
     m.toOBJ("test.obj");
-    return app.exec();
+    return 0;
 
 }
