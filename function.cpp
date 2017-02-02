@@ -95,3 +95,49 @@ Point getProjectedPointOnLine(Point A, Point B, Point C)
                       (v1.y() + (valDp * e1.y()) / len2), 0.0);
     return pp;
 }
+
+void drawTriangle(Point * p, QImage& img){
+
+    QPainter qPainter(&img);
+    //qPainter.setBrush(Qt::NoBrush);
+
+    qPainter.setPen(Qt::red);
+    QPainterPath path;
+    QVector<QPointF> pf;
+
+    pf.push_back(QPointF(p[0].x(),p[0].y()));
+    pf.push_back(QPointF(p[1].x(),p[1].y()));
+    pf.push_back(QPointF(p[2].x(),p[2].y()));
+    pf.push_back(QPointF(p[3].x(),p[3].y()));
+
+    path.addPolygon(QPolygonF(pf));
+    qPainter.fillPath(path, Qt::red);
+    qPainter.drawPath(path);
+
+}
+
+void drawPoly(Point* points, int nbPoint, QImage& img){
+    QPainter qPainter(&img);
+    //qPainter.setBrush(Qt::NoBrush);
+    QPainterPath path;
+    QVector<QPointF> pf;
+
+    for(int i=0;i<nbPoint;i++){
+        pf.push_back(QPointF(points[i].x(),points[i].y()));
+    }
+    path.addPolygon(QPolygonF(pf));
+
+    qPainter.setPen(QPen(Qt::black, 2));
+    qPainter.fillPath(path, Qt::red);
+    qPainter.drawPath(path);
+
+}
+
+bool polyTooSmall(Point* points,int nbPoint, float sizeMini){
+    for(int i=0;i<nbPoint-1;i++){
+        if(distanceTwoPoints(points[i],points[i+1])<sizeMini){
+             return true;
+        }
+    }
+    return false;
+}

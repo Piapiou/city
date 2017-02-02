@@ -17,18 +17,17 @@ public:
 
     QuadArea();
     QuadArea(Point pa, Point pb, Point pc, Point pd);
-    void subdivision(Mesh& m);
+    void subdivision(Mesh& m,QImage& img,float shrinkSize);
     QuadArea shrink();
     void addToMesh(Mesh& m);
-
     Point getPoint(int ind);
-
     void subdivisionPate(Mesh& m);
-
+    Point p[4];
+    float aire;
 
 private:
-    float aire;
-    Point p[4];
+
+
     int longestEdge();
 };
 

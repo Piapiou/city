@@ -11,15 +11,20 @@ QuadArea::QuadArea(Point pa, Point pb, Point pc, Point pd)
     this->p[1]=pb;
     this->p[2]=pc;
     this->p[3]=pd;
+    aire=computeQuadArea(pa,pb,pc,pd);
 }
 
-void QuadArea::subdivision(Mesh& m)
+void QuadArea::subdivision(Mesh& m,QImage& img,float shrinkSize)
 {
-    int seuil=1600;
+    int seuil=2000;
+    shrinkSize=shrinkSize/2>2?shrinkSize/2:2;
+
     aire=computeQuadArea(p[0],p[1],p[2],p[3]);
     if (aire< seuil){
+
         Floor f=Floor(p[0],p[1],p[2],p[3],3);
         f.subdivision(m);
+        drawPoly(p,4,img);
         return;
     }
 
@@ -29,8 +34,18 @@ void QuadArea::subdivision(Mesh& m)
         Point m2=randomMid(p[(longestEdge()+2)%4],p[(longestEdge()+3)%4]);
         QuadArea q1= QuadArea(p[longestEdge()],m1,m2,p[(longestEdge()+3)%4]);
         QuadArea q2= QuadArea(m1,p[(longestEdge()+1)%4],p[(longestEdge()+2)%4],m2);
-        q1.subdivision(m);
-        q2.subdivision(m);
+
+        if(!polyTooSmall(q1.p,4,shrinkSize)){
+            shrinkN(q1.p,4,shrinkSize);
+            q1.subdivision(m,img,shrinkSize);
+
+        }
+        if(!polyTooSmall(q2.p,4,shrinkSize)){
+            shrinkN(q2.p,4,shrinkSize);
+            q2.subdivision(m,img,shrinkSize);
+
+        }
+
     }
     else if(alea<=(int)QGram::QTT){
 
@@ -43,9 +58,21 @@ void QuadArea::subdivision(Mesh& m)
         TriangleArea t1=TriangleArea(q2.getPoint(0),q2.getPoint(1),q2.getPoint(2));
         TriangleArea t2=TriangleArea(q2.getPoint(2),q2.getPoint(3),q2.getPoint(0));
 
-        q1.subdivision(m);
-        t1.subdivision(m);
-        t2.subdivision(m);
+        if(!polyTooSmall(q1.p,4,shrinkSize)){
+            shrinkN(q1.p,4,shrinkSize);
+            q1.subdivision(m,img,shrinkSize);
+
+        }
+        if(!polyTooSmall(t1.p,3,shrinkSize)){
+            shrinkN(t1.p,3,shrinkSize);
+            t1.subdivision(m,img,shrinkSize);
+
+        }
+        if(!polyTooSmall(t2.p,3,shrinkSize)){
+            shrinkN(t2.p,3,shrinkSize);
+            t2.subdivision(m,img,shrinkSize);
+
+        }
     }
 }
 
