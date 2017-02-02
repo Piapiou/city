@@ -100,9 +100,7 @@ void TriangleArea::subdivisionPate(Mesh& m)
 
     m.merge(Mesh::makeTriangle(p3[0], p3[1], p3[2]));
 
-    int alea = rand() % 100;
-
-    if(alea < 20)
+    if(this->aire < 10000)
     {
         RoundFloor round = RoundFloor((p3[0] + p3[1] + p3[2]) / 3, 10, 5);
         round.subdivision(m);
